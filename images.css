@@ -1,0 +1,84 @@
+/* ============================================================
+   IMAGES OVERLAY — opt-in
+   ------------------------------------------------------------
+   This file is the ONE thing keeping images on the site.
+   To remove every image:
+     1. Delete this file (images.css), OR
+     2. Remove the <link rel="stylesheet" href="images.css">
+        line from index.html, economic-foundation.html,
+        social-services.html, infrastructure.html,
+        sovereignty.html, and enabling-reforms.html.
+   The site will fall back to its plain typographic state with
+   no broken layouts and no missing-image icons.
+   ============================================================ */
+
+/* ----- The Gate ----------------------------------------------
+   Cracked red-ochre earth as quiet texture, heavily darkened so
+   the FIX EVERYTHING button and headline own the foreground.
+   The image reads as ground, not as imagery.
+   ----------------------------------------------------------- */
+.gate {
+  background-image:
+    linear-gradient(rgba(10,10,10,0.86), rgba(10,10,10,0.94)),
+    url("images/gate-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ----- Part landing heroes -----------------------------------
+   Each Part landing's .page-hero gets its own photograph as a
+   right-aligned, luminosity-blended background. The headline
+   reads cleanly on the left; the image weights the right side.
+   Mobile (<880px): image fills the whole hero at lower opacity
+   so the headline still sits over solid black.
+   ----------------------------------------------------------- */
+
+body.has-hero-economic       .page-hero { --hero-img: url("images/hero-economic.jpg"); }
+body.has-hero-social         .page-hero { --hero-img: url("images/hero-social.jpg"); }
+body.has-hero-infrastructure .page-hero { --hero-img: url("images/hero-infrastructure.jpg"); }
+body.has-hero-sovereignty    .page-hero { --hero-img: url("images/hero-sovereignty.jpg"); }
+body.has-hero-reforms        .page-hero { --hero-img: url("images/hero-reforms.jpg"); }
+
+body[class*="has-hero-"] .page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+body[class*="has-hero-"] .page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  /* Skill guidance for Government / Public Service: minimalism + trust.
+     Image reads as TEXTURE, not as picture. Headline owns the page. */
+  opacity: 0.22;
+  mix-blend-mode: luminosity;
+  filter: grayscale(35%) contrast(0.95);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 32%, rgba(0,0,0,0.4) 60%, black 92%);
+          mask-image: linear-gradient(to right, transparent 0%, transparent 32%, rgba(0,0,0,0.4) 60%, black 92%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Make the existing .page-hero__bg + container sit on top */
+body[class*="has-hero-"] .page-hero__bg { z-index: 1; }
+body[class*="has-hero-"] .page-hero .container { position: relative; z-index: 2; }
+
+/* On mobile, less right-bias: image fills bottom 50% of hero, still subtle */
+@media (max-width: 880px) {
+  body[class*="has-hero-"] .page-hero::after {
+    background-position: center 40%;
+    opacity: 0.18;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(0,0,0,0.5) 70%, black 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(0,0,0,0.5) 70%, black 100%);
+  }
+}
+
+/* Respect reduced motion (no fixed-attachment for users who want less) */
+@media (prefers-reduced-motion: reduce) {
+  .gate { background-attachment: scroll; }
+}

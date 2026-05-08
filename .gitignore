@@ -1,0 +1,26 @@
+# Independent Front site — files that should NOT be uploaded to GitHub
+
+# PNG originals (5–10MB each) — the deployed site uses optimised .jpgs in images/
+_png-originals/
+images-original-png/
+
+# Builder scripts (live in the outputs folder, kept locally but not on the live site)
+build.py
+build_pages*.py
+wire_images.py
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Python cache (in case any builder scripts get copied in)
+__pycache__/
+*.pyc
+
+# Local web-server logs
+server.log
+*.log
