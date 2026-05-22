@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /talk-to-us-thanks.html
+
+Sitemap: https://www.independentfront.com/sitemap.xml
